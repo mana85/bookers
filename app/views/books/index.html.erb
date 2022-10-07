@@ -1,2 +1,36 @@
-<h1>Books#index</h1>
-<p>Find me in app/views/books/index.html.erb</p>
+<h1>Books</h1>
+
+<% @books.each do |book| %>
+
+  <div>
+  <span><%= book.title %></span>
+  <span><%= book.body %></span>
+
+  <%= link_to "詳細", book_path(book.id) %>
+  <%= link_to "編集", edit_book_path(book.id) %>
+  <%= link_to "削除", book_path(book.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+  </div>
+
+<% end %>
+
+<% if @book.errors.any? %>
+  Error<%= @book.errors.count %>エラーが置きました。
+  <ul>
+    <% @book.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+
+<% end %>
+
+
+<h1>New Book</h1>
+<%= form_with model: @book do |f| %>
+  <h4>Title</h4>
+  <%= f.text_field :title %>
+
+  <h4>Body</h4>
+  <%= f.text_area :body %>
+
+  <%= f.submit 'Create Book'%>
+<% end %>
