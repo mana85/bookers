@@ -7,7 +7,7 @@ class BooksController < ApplicationController
   def create
     @book = Book.new(book_params)
     if @book.save
-      flash[:notice] = "投稿が成功しました"
+      flash[:notice] = "Book was successfully created."
       redirect_to book_path(@book.id) #投稿したら確認画面に遷移する
     else
       @books = Book.all
@@ -27,7 +27,7 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
     @book.update(book_params)
     if @book.save
-      flash[:notice] = "投稿が成功しました"
+      flash[:notice] = "Book was successfully updated."
       redirect_to book_path(@book.id)
     else
       render :edit
